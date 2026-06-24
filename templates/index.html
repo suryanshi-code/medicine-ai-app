@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PERSONAL MEDICINE APP</title>
+    <style>
+        body{
+            background:pink;
+            text-align:center;
+        }
+        
+        .post{
+            background-color:hotpink;
+            text-align: left;
+            font-family: sans-serif;
+            padding:20px;
+            border-radius: 50px;
+            width:50%;
+            margin:20px auto;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>WELCOME TO PERSONAL MEDICINE APP</h1>
+    
+    </div>
+    <form method = "POST"> 
+        <input type = "text" name= "patient" placeholder= "ENTER YOUR NAME">
+        <input type = "number" name="age" placeholder="ENTER YOUR AGE">
+        <input type = "text" name= "symptoms" placeholder= "ENTER YOUR SYMPTOMS">
+        <button type="submit">submit</button>
+    </form>
+{% if name %}
+<div class="post">
+        <h2>{{name}}</h2>
+        <h2>{{age}}</h2>
+        <h3>{{symptoms}}</h3>
+        <h3>{{message}}</h3>
+</div>
+{% endif %}
+</body>
+</html>
