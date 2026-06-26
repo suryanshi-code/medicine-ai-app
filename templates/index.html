@@ -4,39 +4,117 @@
     <title>PERSONAL MEDICINE APP</title>
     <style>
         body{
-            background:pink;
-            text-align:center;
+            background:#130686;
+            color: white;
         }
         
-        .post{
-            background-color:hotpink;
+        .patients{
+            background-color:rgb(56, 138, 179);
             text-align: left;
-            font-family: sans-serif;
+            font-family:Georgia, 'Times New Roman', Times, serif;
             padding:20px;
-            border-radius: 50px;
+            border-radius: 30px;
             width:50%;
-            margin:20px auto;
+            margin:50px auto;
             box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+        .addbutton button{
+            padding:8px 12px;
+            margin-left:10px;
+            margin-bottom: 0px;
+            background-color: rgb(216, 226, 227);
+            gap:15px;
+            margin-bottom: 10px;
+        }
+        .addbutton button:hover {
+            background-color: darkblue;
+            cursor: pointer;
+        }
+        .sub button{
+            padding:8px 12px;
+            margin-left:10px;
+            margin-bottom: 0px;
+            background-color: rgb(108, 205, 239);
+            gap:15px;
+        }
+        .sub button:hover {
+            background-color: rgb(142, 142, 234);
+            color: white;
+        }
+        .delete button{
+            background-color: plum;
+        }
+        .delete button:hover{
+            background-color: purple;
+            cursor:pointer;
+        }
+        input{
+            background-color: aqua;
+            padding:8px;
+            border-radius:30px;
+            border: 2px solid #00000;
+
+        }
+        h1{
+            text-align: center;
+        }
+        .namelink{
+            color: white;
         }
     </style>
 </head>
 <body>
     <h1>WELCOME TO PERSONAL MEDICINE APP</h1>
     
+<form action="/add" method="POST">
+    <div class ="addbutton">
+        <button type="submit">+ ADD PATIENT</button>
     </div>
-    <form method = "POST"> 
-        <input type = "text" name= "patient" placeholder= "ENTER YOUR NAME">
-        <input type = "number" name="age" placeholder="ENTER YOUR AGE">
-        <input type = "text" name= "symptoms" placeholder= "ENTER YOUR SYMPTOMS">
-        <button type="submit">submit</button>
+</form>
+{% for patient in patients %}
+    <a href="/home?name={{ patient.NAME }}" class="namelink">
+        {{ patient.NAME }}
+    </a>
+    <br><br>
+{% endfor %}
+   
+<div>
+    <form method = "POST" action ="/home"> 
+        <div class ="sub">
+            <input type = "text" name= "patient" placeholder= "ENTER YOUR NAME ">
+            <input type = "number" name="age" placeholder="ENTER YOUR AGE">
+            <input type = "text" name= "symptoms" placeholder= "ENTER YOUR SYMPTOMS">
+            <input type = "text" name= "medicine" placeholder= "ENTER YOUR MEDICINE">
+            <input type = "text" name= "dose" placeholder= "ENTER YOUR DOSE">
+            <input type = "text" name= "time" placeholder= "ENTER YOUR TIME">
+            <button type="submit">submit</button>
+        </div>
     </form>
-{% if name %}
-<div class="post">
-        <h2>{{name}}</h2>
-        <h2>{{age}}</h2>
-        <h3>{{symptoms}}</h3>
-        <h3>{{message}}</h3>
 </div>
-{% endif %}
+
+
+<div>
+        {% if patient %}
+        <div class="patients">  
+            <h2>YOUR DETAILS</h2>
+            <p><strong>NAME:{{patient.NAME}}</strong></p>
+            <p><strong>AGE:{{patient.AGE}}</strong></p>
+            <p><strong>SYMPTOMS:{{patient.SYMPTOMS}}</strong></p>
+            <p><strong>MEDICINE:{{patient.MEDICINE}}</strong></p>
+            <p><strong>DOSE:{{patient.DOSE}}</strong></p>
+            <p><strong>TIME:{{patient.TIME}}</strong></p>
+
+
+            <form action ="/delete" method="POST">
+                <div class="delete">
+                   <button type="submit">delete</button>
+                </div>
+            </form>
+
+        </div>
+        {% endif %}
+</div>
+
 </body>
 </html>
