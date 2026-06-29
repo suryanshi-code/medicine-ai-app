@@ -13,21 +13,39 @@ def home():
      
          name=request.form.get("patient","").upper()
          age=request.form.get("age","")
+         gender=request.form.get("gender","").upper()
          symptoms=request.form.get("symptoms","").upper()
          medicine=request.form.get("medicine","").upper()
          dose=request.form.get("dose","")
          time=request.form.get("time","").upper()
+         date=request.form.get("date","").upper()
+         duration=request.form.get("duration","").upper()
+         lab_tests=request.form.get("lab_tests","").upper()
+         prescriptions=request.form.get("prescriptions","").upper()
+         diagnosis=request.form.get("diagnosis","").upper()
+
+
         
          if name and age and symptoms:
               patient={
                    "NAME": name, 
                    "AGE":age,
+                   "GENDER":gender,
                    "SYMPTOMS":symptoms,
-                   "MEDICINE":medicine,
-                   "DOSE":dose,
-                   "TIME":time
+                   "MEDICINES":[
+                        {
+                         "medname":medicine,
+                         "dose":dose,
+                         "time":time,
+                         "duration":duration
+                        }],
+                    "DATE":date,
+                    "LAB_TESTS":lab_tests,
+                    "PRESCRIPTIONS":prescriptions,
+                    "DIAGNOSIS":diagnosis
+                    }
+                   
 
-              }
 
               patients.append(patient)
               active_patient = len(patients) - 1
@@ -35,9 +53,7 @@ def home():
                                              
     if len(patients) == 0:
          return render_template("index.html", patient=None,patients=[])
-    
-
-    # 🔥 HANDLE CLICK
+    selected_name=None
     clicked_name = request.args.get("name")
 
     if clicked_name:
@@ -46,7 +62,7 @@ def home():
                 active_patient = i
                 selected_name = p
                 break
-    else:
+    if selected_name is None and len(patients) > 0:
         selected_name = patients[active_patient]
 
     return render_template("index.html",patients=patients,patient=selected_name)
@@ -61,21 +77,6 @@ def delete():
 
 @app.route("/add",methods=["POST"])
 def add():
-     global active_patient
-     patient={
-          "NAME": "", 
-          "AGE":"",
-          "SYMPTOMS":"",
-          "MEDICINE":"",
-          "DOSE":"",
-          "TIME":""
-
-     }
-          
-     patients.append(patient)
-
-     active_patient=len(patients)-1
-
      return redirect("/home")
 
 
